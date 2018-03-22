@@ -1,5 +1,7 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+const myIcon = (<Icon name="keyboard" size={30} color="#fff" />)
 
 export default class App extends React.Component {
   state = {
@@ -15,7 +17,9 @@ export default class App extends React.Component {
   render() {
     return (
       this.state.fontLoaded &&
-        <View style={styles.container}>
+        <KeyboardAvoidingView 
+          style={styles.container} 
+          behavior="padding">
           <Text style={styles.header}>
             <Text style={{fontFamily: 'Lato-Bold'}}>GPU
             </Text>
@@ -35,7 +39,11 @@ export default class App extends React.Component {
             style={styles.logIn}
             placeholder="Password"
           />
-        </View>
+          <TouchableWithoutFeedback
+            onPress={() => Keyboard.dismiss()}
+          ><View>{myIcon}</View>
+          </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     );
   }
 }
