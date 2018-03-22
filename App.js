@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, Alert, TextInput, ScrollView, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-const myIcon = (<Icon name="keyboard" size={30} color="#fff" />)
+const myIcon = (<Icon name="align-center" size={40} color="#fff" />)
 
 export default class App extends React.Component {
   state = {
     fontLoaded: false,
+    keyboardShown: null
   }
   async componentWillMount() {
     await Expo.Font.loadAsync({
@@ -14,6 +15,7 @@ export default class App extends React.Component {
     });
     this.setState({ fontLoaded: true });
   }
+
   render() {
     return (
       this.state.fontLoaded &&
@@ -38,11 +40,19 @@ export default class App extends React.Component {
           <TextInput 
             style={styles.logIn}
             placeholder="Password"
+            secureTextEntry={true}
+            
           />
-          <TouchableWithoutFeedback
-            onPress={() => Keyboard.dismiss()}
-          ><View>{myIcon}</View>
-          </TouchableWithoutFeedback>
+          <Button
+            style={styles.buttons}
+            title="Log In"
+            color="white"
+            onPress={() => console.log('ok')}
+          />
+            <TouchableWithoutFeedback
+              onPress={() => Keyboard.dismiss()}
+            ><View style={styles.icon}>{myIcon}</View>
+            </TouchableWithoutFeedback>
         </KeyboardAvoidingView>
     );
   }
@@ -74,5 +84,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
     color: "white",
     fontSize: 18
+  },
+  icon: {
+    marginTop: 70
+  },
+  buttons: {
+    backgroundColor: "white"
   }
 });
